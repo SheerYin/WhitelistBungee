@@ -18,7 +18,7 @@ command:
   remove-player-failed: '§f[§c白名单§f] 玩家 {0} 不存在'
 
   transform-already: '§f[§c白名单§f] 已经是 {0} 数据'
-  transform-complete: '§f[§c白名单§f] 转储完成'
+  transform-complete: '§f[§c白名单§f] 转储完成。请修改 config 的 players.storage 字段。现在已使用新储存方式'
 
   list-size: '§f[§c白名单§f] 数量 {0}'
 

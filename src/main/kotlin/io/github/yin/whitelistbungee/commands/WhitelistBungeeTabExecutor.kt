@@ -80,8 +80,8 @@ class WhitelistBungeeTabExecutor : Command("whitelistbungee", "whitelistbungee.c
         }
     }
 
-    private fun transform(sender: CommandSender, arguments: Array<out String>) {
-        when (arguments[1].lowercase(Locale.getDefault())) {
+    private fun transform(sender: CommandSender, argument: String) {
+        when (argument) {
             "yaml" -> {
                 if ("yaml".equals(Main.storage, ignoreCase = true)) {
 
@@ -89,13 +89,15 @@ class WhitelistBungeeTabExecutor : Command("whitelistbungee", "whitelistbungee.c
                         TextComponent(
                             TextProcess.replace(
                                 MessageYAMLStorage.configuration.getString("command.transform-already"),
-                                arguments[1]
+                                argument
                             )
                         )
                     )
 
                 } else {
                     ProxyServer.getInstance().scheduler.runAsync(Main.instance) {
+                        WhitelistMySQLStorage.close()
+
                         WhitelistYAMLStorage.initialization(Main.instance.dataFolder)
                         WhitelistYAMLStorage.load()
                         WhitelistYAMLStorage.save(Whitelist.playerNames)
@@ -104,10 +106,13 @@ class WhitelistBungeeTabExecutor : Command("whitelistbungee", "whitelistbungee.c
                             TextComponent(
                                 TextProcess.replace(
                                     MessageYAMLStorage.configuration.getString("command.transform-complete"),
-                                    arguments[1]
+                                    argument
                                 )
                             )
                         )
+
+                        Main.storage = "yaml"
+                        Whitelist.load()
 
                     }
                 }
@@ -119,7 +124,7 @@ class WhitelistBungeeTabExecutor : Command("whitelistbungee", "whitelistbungee.c
                         TextComponent(
                             TextProcess.replace(
                                 MessageYAMLStorage.configuration.getString("command.transform-already"),
-                                arguments[1]
+                                argument
                             )
                         )
                     )
@@ -145,12 +150,13 @@ class WhitelistBungeeTabExecutor : Command("whitelistbungee", "whitelistbungee.c
                             TextComponent(
                                 TextProcess.replace(
                                     MessageYAMLStorage.configuration.getString("command.transform-complete"),
-                                    arguments[1]
+                                    argument
                                 )
                             )
                         )
 
                         Main.storage = "mysql"
+                        Whitelist.load()
                     }
                 }
             }
@@ -201,26 +207,24 @@ class WhitelistBungeeTabExecutor : Command("whitelistbungee", "whitelistbungee.c
                 when (arguments[0].lowercase(Locale.getDefault())) {
                     "add" -> add(sender, arguments[1])
                     "remove" -> remove(sender, arguments[1])
-                    "transform" -> transform(sender, arguments)
+                    "transform" -> transform(sender, arguments[1].lowercase())
                 }
             }
         }
     }
 
     override fun onTabComplete(sender: CommandSender, arguments: Array<out String>): List<String> {
-        return when (arguments.size) {
-            1 -> {
-                listMatches(arguments[0], mutableListOf("help", "list", "add", "remove", "transform", "reload"))
-            }
-
-            2 -> {
-                listMatches(arguments[1], mutableListOf("yaml", "mysql"))
-            }
-
-            else -> {
-                emptyList()
+        if (arguments.size == 1) {
+            return listMatches(arguments[0], mutableListOf("help", "list", "add", "remove", "transform", "reload"))
+        }
+        else if (arguments.size == 2) {
+            if ("remove".equals(arguments[0], ignoreCase = true)) {
+                return listMatches(arguments[1], Whitelist.playerNames)
+            } else if ("transform".equals(arguments[0], ignoreCase = true)) {
+                return listMatches(arguments[1], mutableListOf("yaml", "mysql"))
             }
         }
+        return emptyList()
     }
 
     private fun listMatches(argument: String, suggest: Iterable<String>): MutableList<String> {

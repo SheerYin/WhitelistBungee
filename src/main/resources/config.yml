@@ -2,7 +2,7 @@ players:
   storage: 'yaml'
   # 自动保存。每 60 秒检查队列
   queue-clear-interval: 60
-  # 自动保存。一段时间大量单次操作则会推迟（一次操作推迟 10 秒），超级大量操作可能推迟很久
+  # 延迟队列，与 queue-clear-interval 选项无关。一段时间大量单次操作则会推迟（一次操作推迟 10 秒），超级大量操作可能推迟很久
   queue-add-time: 10
   yaml:
     # 相对路径 'plugins/Test/a.yml'

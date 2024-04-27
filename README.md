@@ -3,8 +3,9 @@
 特点:
   - 专为离线服务器设计
   - 玩家可以进入登录服，但无法前往其他服务器
-  - 登录服可以使用authme注册之类，而不是直接拒绝在bungee外
+  - 登录服可以使用 authme 注册，而不是直接拒绝在 bungee 外
   - 命令补全
   - 自动转换 yaml/mysql 无需重启
+  - 自定义语言
   - 延迟更新队列，等待多次记录一起提交。支持顺序
-  - 使用NIO（java.nio）支持link文件同步
+  - 使用 NIO（java.nio） 支持 windows 与 linux 通用路径，以及 link 同步
