@@ -1,0 +1,29 @@
+command:
+  help:
+    - §f[§c白名单§f] 主命令 /whitelistbungee 缩写 /wb, wl, wlb
+    - §f[§c白名单§f] 添加玩家 /wb add <playername>
+    - §f[§c白名单§f] 移除玩家 /wb remove <playername>
+    - §f[§c白名单§f] 转储数据 /wb transform <yaml/mysql>
+    - §f[§c白名单§f] 查看列表 /wb list
+    - §f[§c白名单§f] 重新加载 /wb reload
+  reload:
+    - §f[§c白名单§f] 重新加载配置文件和 {0} 语言
+    - §f[§c白名单§f] 已加载 {1} 玩家
+
+  add-player-success: '§f[§c白名单§f] 成功设置 {0} 玩家'
+  add-player-failed: '§f[§c白名单§f] 玩家 {0} 已经存在'
+
+  remove-player-success: '§f[§c白名单§f] 成功移除 {0} 玩家'
+  remove-player-kick: '§c您的白名单被移除'
+  remove-player-failed: '§f[§c白名单§f] 玩家 {0} 不存在'
+
+  transform-already: '§f[§c白名单§f] 已经是 {0} 数据'
+  transform-complete: '§f[§c白名单§f] 转储完成'
+
+  list-size: '§f[§c白名单§f] 数量 {0}'
+
+permission:
+  no-permission: '§f[§c白名单§f] 您没有 {0} 权限'
+
+whitelist:
+  apply: '§f[§c白名单§f] 您没有白名单，请前往 example.com 申请'

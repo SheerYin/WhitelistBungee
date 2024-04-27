@@ -1,0 +1,7 @@
+name: WhitelistBungee
+main: io.github.yin.whitelistbungee.Main
+version: "{pluginVersion}"
+author: "尹"
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:1.9.23
+  - com.zaxxer:HikariCP:5.1.0
