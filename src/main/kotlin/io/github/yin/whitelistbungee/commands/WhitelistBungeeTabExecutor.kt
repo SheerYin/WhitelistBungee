@@ -214,14 +214,16 @@ class WhitelistBungeeTabExecutor : Command("whitelistbungee", "whitelistbungee.c
     }
 
     override fun onTabComplete(sender: CommandSender, arguments: Array<out String>): List<String> {
-        if (arguments.size == 1) {
-            return listMatches(arguments[0], mutableListOf("help", "list", "add", "remove", "transform", "reload"))
-        }
-        else if (arguments.size == 2) {
-            if ("remove".equals(arguments[0], ignoreCase = true)) {
-                return listMatches(arguments[1], Whitelist.playerNames)
-            } else if ("transform".equals(arguments[0], ignoreCase = true)) {
-                return listMatches(arguments[1], mutableListOf("yaml", "mysql"))
+        when (arguments.size) {
+            1 -> {
+                return listMatches(arguments[0], mutableListOf("help", "list", "add", "remove", "transform", "reload"))
+            }
+            2 -> {
+                if ("remove".equals(arguments[0], ignoreCase = true)) {
+                    return listMatches(arguments[1], Whitelist.playerNames)
+                } else if ("transform".equals(arguments[0], ignoreCase = true)) {
+                    return listMatches(arguments[1], mutableListOf("yaml", "mysql"))
+                }
             }
         }
         return emptyList()
